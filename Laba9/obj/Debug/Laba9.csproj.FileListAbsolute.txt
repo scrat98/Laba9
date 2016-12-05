@@ -1,0 +1,9 @@
+c:\users\user\documents\visual studio 2015\Projects\Laba9\Laba9\bin\Debug\Laba9.exe.config
+c:\users\user\documents\visual studio 2015\Projects\Laba9\Laba9\bin\Debug\Laba9.exe
+c:\users\user\documents\visual studio 2015\Projects\Laba9\Laba9\bin\Debug\Laba9.pdb
+c:\users\user\documents\visual studio 2015\Projects\Laba9\Laba9\obj\Debug\Laba9.csprojResolveAssemblyReference.cache
+c:\users\user\documents\visual studio 2015\Projects\Laba9\Laba9\obj\Debug\Laba9.Properties.Resources.resources
+c:\users\user\documents\visual studio 2015\Projects\Laba9\Laba9\obj\Debug\Laba9.csproj.GenerateResource.Cache
+c:\users\user\documents\visual studio 2015\Projects\Laba9\Laba9\obj\Debug\Laba9.exe
+c:\users\user\documents\visual studio 2015\Projects\Laba9\Laba9\obj\Debug\Laba9.pdb
+c:\users\user\documents\visual studio 2015\Projects\Laba9\Laba9\obj\Debug\Laba9.Form1.resources
