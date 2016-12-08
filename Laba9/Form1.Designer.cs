@@ -33,20 +33,21 @@
             this.Fano = new System.Windows.Forms.TabControl();
             this.Default = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.DefaultInfo = new System.Windows.Forms.RichTextBox();
             this.DefImg = new System.Windows.Forms.PictureBox();
             this.Huffman = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.KodHuffman = new System.Windows.Forms.RichTextBox();
             this.HuffmanImg = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.KodFano = new System.Windows.Forms.RichTextBox();
             this.FanoImg = new System.Windows.Forms.PictureBox();
             this.LoadImg = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.ClearButton = new System.Windows.Forms.Button();
             this.Kvant = new System.Windows.Forms.RichTextBox();
-            this.DefaultInfo = new System.Windows.Forms.RichTextBox();
-            this.KodHuffman = new System.Windows.Forms.RichTextBox();
-            this.KodFano = new System.Windows.Forms.RichTextBox();
+            this.Report = new System.Windows.Forms.CheckBox();
             this.Fano.SuspendLayout();
             this.Default.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -74,7 +75,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextInput.Location = new System.Drawing.Point(12, 7);
             this.TextInput.Name = "TextInput";
-            this.TextInput.Size = new System.Drawing.Size(665, 47);
+            this.TextInput.Size = new System.Drawing.Size(665, 56);
             this.TextInput.TabIndex = 1;
             this.TextInput.Text = "Hello!";
             this.TextInput.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
@@ -98,10 +99,10 @@
             this.Fano.Controls.Add(this.Default);
             this.Fano.Controls.Add(this.Huffman);
             this.Fano.Controls.Add(this.tabPage3);
-            this.Fano.Location = new System.Drawing.Point(12, 103);
+            this.Fano.Location = new System.Drawing.Point(12, 137);
             this.Fano.Name = "Fano";
             this.Fano.SelectedIndex = 0;
-            this.Fano.Size = new System.Drawing.Size(740, 438);
+            this.Fano.Size = new System.Drawing.Size(740, 404);
             this.Fano.TabIndex = 7;
             // 
             // Default
@@ -110,7 +111,7 @@
             this.Default.Location = new System.Drawing.Point(4, 25);
             this.Default.Name = "Default";
             this.Default.Padding = new System.Windows.Forms.Padding(3);
-            this.Default.Size = new System.Drawing.Size(732, 409);
+            this.Default.Size = new System.Drawing.Size(732, 375);
             this.Default.TabIndex = 0;
             this.Default.Text = "Default";
             this.Default.UseVisualStyleBackColor = true;
@@ -128,9 +129,20 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.DefImg);
-            this.splitContainer3.Size = new System.Drawing.Size(726, 403);
+            this.splitContainer3.Size = new System.Drawing.Size(726, 369);
             this.splitContainer3.SplitterDistance = 242;
             this.splitContainer3.TabIndex = 2;
+            // 
+            // DefaultInfo
+            // 
+            this.DefaultInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DefaultInfo.Location = new System.Drawing.Point(3, 3);
+            this.DefaultInfo.Name = "DefaultInfo";
+            this.DefaultInfo.Size = new System.Drawing.Size(237, 363);
+            this.DefaultInfo.TabIndex = 0;
+            this.DefaultInfo.Text = "";
             // 
             // DefImg
             // 
@@ -138,7 +150,7 @@
             this.DefImg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DefImg.Location = new System.Drawing.Point(0, 0);
             this.DefImg.Name = "DefImg";
-            this.DefImg.Size = new System.Drawing.Size(480, 403);
+            this.DefImg.Size = new System.Drawing.Size(480, 369);
             this.DefImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.DefImg.TabIndex = 1;
             this.DefImg.TabStop = false;
@@ -170,6 +182,17 @@
             this.splitContainer1.Size = new System.Drawing.Size(726, 403);
             this.splitContainer1.SplitterDistance = 237;
             this.splitContainer1.TabIndex = 2;
+            // 
+            // KodHuffman
+            // 
+            this.KodHuffman.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.KodHuffman.Location = new System.Drawing.Point(3, 3);
+            this.KodHuffman.Name = "KodHuffman";
+            this.KodHuffman.Size = new System.Drawing.Size(231, 397);
+            this.KodHuffman.TabIndex = 0;
+            this.KodHuffman.Text = "";
             // 
             // HuffmanImg
             // 
@@ -213,6 +236,17 @@
             this.splitContainer2.SplitterDistance = 242;
             this.splitContainer2.TabIndex = 1;
             // 
+            // KodFano
+            // 
+            this.KodFano.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.KodFano.Location = new System.Drawing.Point(3, 3);
+            this.KodFano.Name = "KodFano";
+            this.KodFano.Size = new System.Drawing.Size(236, 397);
+            this.KodFano.TabIndex = 0;
+            this.KodFano.Text = "";
+            // 
             // FanoImg
             // 
             this.FanoImg.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -242,7 +276,7 @@
             // 
             this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(692, 95);
+            this.checkBox1.Location = new System.Drawing.Point(683, 95);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(71, 21);
             this.checkBox1.TabIndex = 10;
@@ -264,50 +298,29 @@
             // 
             this.Kvant.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Kvant.Location = new System.Drawing.Point(12, 60);
+            this.Kvant.Location = new System.Drawing.Point(12, 69);
             this.Kvant.Name = "Kvant";
-            this.Kvant.Size = new System.Drawing.Size(665, 37);
+            this.Kvant.Size = new System.Drawing.Size(665, 62);
             this.Kvant.TabIndex = 12;
             this.Kvant.Text = "Квантования не было.";
             // 
-            // DefaultInfo
+            // Report
             // 
-            this.DefaultInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DefaultInfo.Location = new System.Drawing.Point(3, 3);
-            this.DefaultInfo.Name = "DefaultInfo";
-            this.DefaultInfo.Size = new System.Drawing.Size(237, 397);
-            this.DefaultInfo.TabIndex = 0;
-            this.DefaultInfo.Text = "";
-            // 
-            // KodHuffman
-            // 
-            this.KodHuffman.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.KodHuffman.Location = new System.Drawing.Point(3, 3);
-            this.KodHuffman.Name = "KodHuffman";
-            this.KodHuffman.Size = new System.Drawing.Size(231, 397);
-            this.KodHuffman.TabIndex = 0;
-            this.KodHuffman.Text = "";
-            // 
-            // KodFano
-            // 
-            this.KodFano.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.KodFano.Location = new System.Drawing.Point(3, 3);
-            this.KodFano.Name = "KodFano";
-            this.KodFano.Size = new System.Drawing.Size(236, 397);
-            this.KodFano.TabIndex = 0;
-            this.KodFano.Text = "";
+            this.Report.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Report.AutoSize = true;
+            this.Report.Location = new System.Drawing.Point(683, 122);
+            this.Report.Name = "Report";
+            this.Report.Size = new System.Drawing.Size(73, 21);
+            this.Report.TabIndex = 13;
+            this.Report.Text = "Report";
+            this.Report.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(782, 553);
+            this.Controls.Add(this.Report);
             this.Controls.Add(this.Kvant);
             this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.checkBox1);
@@ -361,6 +374,7 @@
         private System.Windows.Forms.RichTextBox DefaultInfo;
         private System.Windows.Forms.RichTextBox KodHuffman;
         private System.Windows.Forms.RichTextBox KodFano;
+        private System.Windows.Forms.CheckBox Report;
     }
 }
 

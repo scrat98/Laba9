@@ -9,6 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Word = Microsoft.Office.Interop.Word;
+using System.Reflection;
+using Microsoft.Office.Core;
+using Microsoft.Office.Interop;
 
 namespace Laba9
 {
@@ -18,6 +22,9 @@ namespace Laba9
         Fano fano;
         DefCode def;
         string path = AppDomain.CurrentDomain.BaseDirectory;
+        string defImg = "defImg.jpg";
+        string grayImg = "grayImg.jpg";
+        Object _missingObj = System.Reflection.Missing.Value; //null ref
 
         public Form1()
         {
@@ -27,6 +34,169 @@ namespace Laba9
             def = new DefCode();
 
             generate(TextInput.Text);
+        }
+
+
+        private Word.Range findText(object findTextObj, Word.Document document)
+        {
+            Word.Range wordRange;
+            bool rangeFound = false;
+            for (int i = 1; i <= document.Sections.Count; i++)
+            {
+                wordRange = document.Sections[i].Range;
+                Word.Find wordFindObj = wordRange.Find;
+
+                object[] wordFindParameters = new object[15] { findTextObj, _missingObj, _missingObj, _missingObj, _missingObj, _missingObj, _missingObj, _missingObj, _missingObj, _missingObj, _missingObj, _missingObj, _missingObj, _missingObj, _missingObj };
+                rangeFound = (bool)wordFindObj.GetType().InvokeMember("Execute", BindingFlags.InvokeMethod, null, wordFindObj, wordFindParameters);
+
+                if (rangeFound) { return wordRange; }
+            }
+
+            return null;
+        }
+
+        private void createReport(string Text)
+        {
+            Object templateName = path + "templateReport.dotx";
+            Object fileName = path + "Report.docx";
+
+            Word.Application wordApp = new Word.Application();
+
+            Word.Document WordDocument = wordApp.Documents.Add(templateName);
+            object findTextObj;
+            Word.Range range;
+            Word.InlineShape inline_shape;
+            Word.Shape shape;
+
+            if (DefImg.Image != null)
+            {
+                findTextObj = "Исходной изображение";
+                range = findText(findTextObj, WordDocument); //ищем наш Range на текст
+                range.End++; //переходим на след строку
+                range.Start = range.End;
+                inline_shape = range.InlineShapes.AddPicture(path + defImg); //вставляем изображение
+                shape = inline_shape.ConvertToShape();
+                shape.WrapFormat.Type = Word.WdWrapType.wdWrapTopBottom; //обтекание сверху и снизу
+                shape.Left = (float)Word.WdShapePosition.wdShapeCenter; //ставим в центр
+                shape.Top = (float)Word.WdShapePosition.wdShapeCenter;
+
+                findTextObj = "Черно-белое изображение";
+                range = findText(findTextObj, WordDocument); //ищем наш Range на текст
+                range.End++; //переходим на след строку
+                range.Start = range.End;
+                inline_shape = range.InlineShapes.AddPicture(path + grayImg); //вставляем изображение
+                shape = inline_shape.ConvertToShape();
+                shape.WrapFormat.Type = Word.WdWrapType.wdWrapTopBottom; //обтекание сверху и снизу
+                shape.Left = (float)Word.WdShapePosition.wdShapeCenter; //ставим в центр
+                shape.Top = (float)Word.WdShapePosition.wdShapeCenter;
+            }
+            else
+            {
+                findTextObj = "Исходной изображение";
+                range = findText(findTextObj, WordDocument); //ищем наш Range на текст
+                range.End++; //переходим на след строку
+                range.Start = range.End;
+                range.Text += "Нет изображения";
+
+                findTextObj = "Черно-белое изображение";
+                range = findText(findTextObj, WordDocument); //ищем наш Range на текст
+                range.End++; //переходим на след строку
+                range.Start = range.End;
+                range.Text += "Нет изображения";
+            }
+
+            WordDocument.Variables["Text"].Value = TextInput.Text;
+            WordDocument.Variables["Kvant"].Value = Kvant.Text;
+
+            WordDocument.Variables["defCode"].Value = def.TextCode;
+            WordDocument.Variables["defCodeLen"].Value = def.TextCode.Length.ToString();
+            WordDocument.Variables["I"].Value = def.I.ToString();
+            WordDocument.Variables["defTableCount"].Value = def.table.Count.ToString();
+            WordDocument.Variables["defAvLen"].Value = def.AvLen.ToString();
+            WordDocument.Variables["defMinLen"].Value = def.minLen.ToString();
+
+            WordDocument.Variables["defTable"].Value = "\r\n";
+            for (int i = 0; i < def.table.Count; i++)
+            {
+                if (checkBox1.Checked) WordDocument.Variables["defTable"].Value += ((int)def.table[i].symbol).ToString();
+                else WordDocument.Variables["defTable"].Value += def.table[i].symbol.ToString();
+
+                WordDocument.Variables["defTable"].Value += (" - " + def.table[i].count.ToString() + " - " + (double)def.table[i].count / Text.Length * 100 + "% - ");
+
+                for (int j = 0; j < def.table[i].code.Count; j++)
+                    WordDocument.Variables["defTable"].Value += def.table[i].code[j].ToString();
+
+                WordDocument.Variables["defTable"].Value += "\r\n";
+            }
+
+            WordDocument.Variables["HufCode"].Value = huffman.codeText;
+            WordDocument.Variables["HufCodeLen"].Value = huffman.codeText.Length.ToString();
+            WordDocument.Variables["HufK"].Value = (double)huffman.codeText.Length / def.TextCode.Length + "";
+            WordDocument.Variables["HufTableCount"].Value = huffman.table.Count.ToString();
+            WordDocument.Variables["HufAvLen"].Value = huffman.avLen.ToString();
+            WordDocument.Variables["HufMinLen"].Value = huffman.minLen.ToString();
+            WordDocument.Variables["HufQ"].Value = (1.0 - (double)huffman.codeText.Length / def.TextCode.Length) * 100 + "%";
+
+            WordDocument.Variables["HufTable"].Value = "\r\n";
+            for (int i = 0; i < huffman.table.Count; i++)
+            {
+                if (checkBox1.Checked) WordDocument.Variables["HufTable"].Value += "" + (int)huffman.table[i].symbol;
+                else WordDocument.Variables["HufTable"].Value += huffman.table[i].symbol.ToString();
+
+                WordDocument.Variables["HufTable"].Value += " - " + huffman.table[i].count.ToString() + " - " + (double)huffman.table[i].count / Text.Length * 100 + "% - ";
+
+                for (int j = 0; j < huffman.table[i].code.Count; j++)
+                    WordDocument.Variables["HufTable"].Value += huffman.table[i].code[j].ToString();
+
+                WordDocument.Variables["HufTable"].Value += "\r\n";
+            }
+
+            WordDocument.Variables["FanoCode"].Value = fano.codeText;
+            WordDocument.Variables["FanoCodeLen"].Value = fano.codeText.Length.ToString();
+            WordDocument.Variables["FanoK"].Value = (double)fano.codeText.Length / def.TextCode.Length + "";
+            WordDocument.Variables["FanoTableCount"].Value = fano.table.Count.ToString();
+            WordDocument.Variables["FanoAvLen"].Value = fano.avLen.ToString();
+            WordDocument.Variables["FanoMinLen"].Value = fano.minLen.ToString();
+            WordDocument.Variables["FanoQ"].Value = (1.0 - (double)fano.codeText.Length / def.TextCode.Length) * 100 + "%";
+
+            WordDocument.Variables["FanoTable"].Value = "\r\n";
+            for (int i = 0; i < fano.table.Count; i++)
+            {
+                if (checkBox1.Checked) WordDocument.Variables["FanoTable"].Value += "" + (int)fano.table[i].symbol;
+                else WordDocument.Variables["FanoTable"].Value += fano.table[i].symbol.ToString();
+
+                WordDocument.Variables["FanoTable"].Value += " - " + fano.table[i].count.ToString() + " - " + (double)fano.table[i].count / Text.Length * 100 + "% - ";
+
+                for (int j = 0; j < fano.table[i].code.Count; j++)
+                    WordDocument.Variables["FanoTable"].Value += fano.table[i].code[j].ToString();
+
+                WordDocument.Variables["FanoTable"].Value += "\r\n";
+            }
+
+            findTextObj = "Кодирование по Фано";
+            range = findText(findTextObj, WordDocument); //ищем наш Range на текст
+            range.Start--; //переходим на след строку
+            range.End = range.Start;
+            inline_shape = range.InlineShapes.AddPicture(path + "huffman.png"); //вставляем изображение
+            shape = inline_shape.ConvertToShape();
+            shape.WrapFormat.Type = Word.WdWrapType.wdWrapTopBottom; //обтекание сверху и снизу
+            shape.Left = (float)Word.WdShapePosition.wdShapeCenter; //ставим в центр
+            shape.Top = (float)Word.WdShapePosition.wdShapeCenter;
+
+            findTextObj = "Вывод";
+            range = findText(findTextObj, WordDocument); //ищем наш Range на текст
+            range.Start--; //переходим на след строку
+            range.End = range.Start;
+            inline_shape = range.InlineShapes.AddPicture(path + "fano.png"); //вставляем изображение
+            shape = inline_shape.ConvertToShape();
+            shape.WrapFormat.Type = Word.WdWrapType.wdWrapTopBottom; //обтекание сверху и снизу
+            shape.Left = (float)Word.WdShapePosition.wdShapeCenter; //ставим в центр
+            shape.Top = (float)Word.WdShapePosition.wdShapeCenter;
+
+            WordDocument.Fields.Update();
+            WordDocument.SaveAs2(fileName);
+            WordDocument.Close();
+            wordApp.Quit();
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
@@ -40,6 +210,7 @@ namespace Laba9
             if(HuffmanImg.Image != null) HuffmanImg.Image.Dispose();
             if(FanoImg.Image != null) FanoImg.Image.Dispose();
 
+            Report.Enabled = false;
             Generate.Enabled = false;
             LoadImg.Enabled = false;
             ClearButton.Enabled = false;
@@ -48,6 +219,16 @@ namespace Laba9
             huffman.build(Text, checkBox1.Checked);
             fano.build(Text, checkBox1.Checked);
             def.build(huffman.table, Text);
+
+            if(!checkBox1.Checked)
+            {
+                if (DefImg.Image != null)
+                {
+                    DefImg.Image.Dispose();
+                    DefImg.Image = null;
+                }
+                DefImg.Invalidate();
+            }
 
             //huffman page
             HuffmanImg.Image = new Bitmap(path + "huffman.png");
@@ -228,6 +409,9 @@ namespace Laba9
                 DefaultInfo.AppendText("\r\n");
             }
 
+            
+            if(Report.Checked) createReport(Text);
+            Report.Enabled = true;
             Generate.Enabled = true;
             LoadImg.Enabled = true;
             ClearButton.Enabled = true;
@@ -316,9 +500,9 @@ namespace Laba9
             {
                 try
                 {
+                    if(DefImg.Image != null) DefImg.Image.Dispose();
                     image = new Bitmap(open_dialog.FileName);
-                    DefImg.Image = image;
-                    DefImg.Invalidate();
+                    image.Save(path + defImg);
                     checkBox1.Checked = true;
 
                     //выгружаем пиксели - центраьную строчку
@@ -334,7 +518,9 @@ namespace Laba9
                             if(j == image.Height / 2) TextInput.Text += grayScale.ToString() + " ";
                         }
 
-                    image.Save(path + "img.jpg");
+                    image.Save(path + grayImg);
+                    DefImg.Image = new Bitmap(path + grayImg);
+                    DefImg.Invalidate();
                 }
                 catch
                 {
