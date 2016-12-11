@@ -11,7 +11,7 @@ namespace Laba9
         public List<Node> table = new List<Node>();
         public string text;
         public string TextCode;
-        public double I;
+        public double H;
         public double AvLen;
         public double minLen;
         public int maxLength;
@@ -29,10 +29,10 @@ namespace Laba9
             AvLen = maxLength;
             minLen = maxLength;
 
-            I = 0;
+            H = 0;
             for (int i = 0; i < table.Count; i++)
             {
-                I += (double)table[i].count / text.Length * Math.Log((double)table[i].count / text.Length, 2);
+                H += (double)table[i].count / text.Length * Math.Log((double)table[i].count / text.Length, 2);
 
                 //коды
                 int curLength;
@@ -56,7 +56,7 @@ namespace Laba9
 
                 for (int j = buf.Count - 1; j >= 0; j--) table[i].code.Add(buf[j]);
             }
-            I *= -1;
+            H *= -1;
 
             for(int i = 0; i < text.Length; i++)
                 for(int j = 0; j < table.Count; j++)

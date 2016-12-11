@@ -24,6 +24,7 @@ namespace Laba9
         public string codeText;
         public double avLen;
         public double minLen;
+        public double H;
 
         bool img;
         string text;
@@ -194,11 +195,15 @@ namespace Laba9
         {
             avLen = 0;
             minLen = 999999;
+            H = 0;
             for (int i = 0; i < table.Count; i++)
             {
+                H += (double)table[i].count / text.Length * Math.Log((double)table[i].count / text.Length, 2);
+
                 avLen += (double)table[i].count / text.Length * table[i].code.Count;
                 minLen = Math.Min(table[i].code.Count, minLen);
             }
+            H *= -1;
         }
     }
 }

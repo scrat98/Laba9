@@ -110,7 +110,8 @@ namespace Laba9
 
             WordDocument.Variables["defCode"].Value = def.TextCode;
             WordDocument.Variables["defCodeLen"].Value = def.TextCode.Length.ToString();
-            WordDocument.Variables["I"].Value = def.I.ToString();
+            WordDocument.Variables["defH"].Value = def.H.ToString();
+            WordDocument.Variables["defI"].Value = (def.H * def.TextCode.Length).ToString();
             WordDocument.Variables["defTableCount"].Value = def.table.Count.ToString();
             WordDocument.Variables["defAvLen"].Value = def.AvLen.ToString();
             WordDocument.Variables["defMinLen"].Value = def.minLen.ToString();
@@ -131,9 +132,12 @@ namespace Laba9
 
             WordDocument.Variables["HufCode"].Value = huffman.codeText;
             WordDocument.Variables["HufCodeLen"].Value = huffman.codeText.Length.ToString();
-            WordDocument.Variables["HufK"].Value = (double)huffman.codeText.Length / def.TextCode.Length + "";
+            WordDocument.Variables["hufH"].Value = huffman.H.ToString();
+            WordDocument.Variables["hufI"].Value = (huffman.H * huffman.codeText.Length).ToString();
+            WordDocument.Variables["HufK"].Value = (def.H * def.TextCode.Length) / (huffman.H * huffman.codeText.Length) + "";
             WordDocument.Variables["HufTableCount"].Value = huffman.table.Count.ToString();
             WordDocument.Variables["HufAvLen"].Value = huffman.avLen.ToString();
+            WordDocument.Variables["HufEf"].Value = def.H / huffman.avLen + "";
             WordDocument.Variables["HufMinLen"].Value = huffman.minLen.ToString();
             WordDocument.Variables["HufQ"].Value = (1.0 - (double)huffman.codeText.Length / def.TextCode.Length) * 100 + "%";
 
@@ -153,9 +157,12 @@ namespace Laba9
 
             WordDocument.Variables["FanoCode"].Value = fano.codeText;
             WordDocument.Variables["FanoCodeLen"].Value = fano.codeText.Length.ToString();
-            WordDocument.Variables["FanoK"].Value = (double)fano.codeText.Length / def.TextCode.Length + "";
+            WordDocument.Variables["fanoH"].Value = fano.H.ToString();
+            WordDocument.Variables["fanoI"].Value = (fano.H * fano.codeText.Length).ToString();
+            WordDocument.Variables["FanoK"].Value = (def.H * def.TextCode.Length) / (fano.H * fano.codeText.Length) + "";
             WordDocument.Variables["FanoTableCount"].Value = fano.table.Count.ToString();
             WordDocument.Variables["FanoAvLen"].Value = fano.avLen.ToString();
+            WordDocument.Variables["FanoEf"].Value = def.H / fano.avLen + "";
             WordDocument.Variables["FanoMinLen"].Value = fano.minLen.ToString();
             WordDocument.Variables["FanoQ"].Value = (1.0 - (double)fano.codeText.Length / def.TextCode.Length) * 100 + "%";
 
@@ -246,10 +253,22 @@ namespace Laba9
             KodHuffman.AppendText(huffman.codeText.Length + "\r\n");
 
             KodHuffman.SelectionFont = new Font(KodHuffman.Font, FontStyle.Bold);
+            KodHuffman.AppendText("Значение энтропии: ");
+
+            KodHuffman.SelectionFont = new Font(KodHuffman.Font, FontStyle.Regular);
+            KodHuffman.AppendText(huffman.H.ToString() + "\r\n");
+
+            KodHuffman.SelectionFont = new Font(KodHuffman.Font, FontStyle.Bold);
+            KodHuffman.AppendText("Информационный объем сообщения: ");
+
+            KodHuffman.SelectionFont = new Font(KodHuffman.Font, FontStyle.Regular);
+            KodHuffman.AppendText(huffman.H * huffman.codeText.Length + "\r\n");
+
+            KodHuffman.SelectionFont = new Font(KodHuffman.Font, FontStyle.Bold);
             KodHuffman.AppendText("Степень сжатия: ");
 
             KodHuffman.SelectionFont = new Font(KodHuffman.Font, FontStyle.Regular);
-            KodHuffman.AppendText((double)huffman.codeText.Length / def.TextCode.Length + "\r\n");
+            KodHuffman.AppendText( (def.H * def.TextCode.Length) / (huffman.H * huffman.codeText.Length) + "\r\n");
 
             KodHuffman.SelectionFont = new Font(KodHuffman.Font, FontStyle.Bold);
             KodHuffman.AppendText("Количесвто символов алфавита: ");
@@ -262,6 +281,12 @@ namespace Laba9
 
             KodHuffman.SelectionFont = new Font(KodHuffman.Font, FontStyle.Regular);
             KodHuffman.AppendText(huffman.avLen.ToString() + "\r\n");
+
+            KodHuffman.SelectionFont = new Font(KodHuffman.Font, FontStyle.Bold);
+            KodHuffman.AppendText("Эффективность сжатия: ");
+
+            KodHuffman.SelectionFont = new Font(KodHuffman.Font, FontStyle.Regular);
+            KodHuffman.AppendText(def.H / huffman.avLen + "\r\n");
 
             KodHuffman.SelectionFont = new Font(KodHuffman.Font, FontStyle.Bold);
             KodHuffman.AppendText("Минимальная длина кода: ");
@@ -308,10 +333,22 @@ namespace Laba9
             KodFano.AppendText(fano.codeText.Length + "\r\n");
 
             KodFano.SelectionFont = new Font(KodFano.Font, FontStyle.Bold);
+            KodFano.AppendText("Значение энтропии: ");
+
+            KodFano.SelectionFont = new Font(KodFano.Font, FontStyle.Regular);
+            KodFano.AppendText(fano.H.ToString() + "\r\n");
+
+            KodFano.SelectionFont = new Font(KodFano.Font, FontStyle.Bold);
+            KodFano.AppendText("Информационный объем сообщения: ");
+
+            KodFano.SelectionFont = new Font(KodFano.Font, FontStyle.Regular);
+            KodFano.AppendText(fano.H * fano.codeText.Length + "\r\n");
+
+            KodFano.SelectionFont = new Font(KodFano.Font, FontStyle.Bold);
             KodFano.AppendText("Степень сжатия: ");
 
             KodFano.SelectionFont = new Font(KodFano.Font, FontStyle.Regular);
-            KodFano.AppendText((double)fano.codeText.Length/def.TextCode.Length + "\r\n");
+            KodFano.AppendText( (def.H * def.TextCode.Length) / (fano.H * fano.codeText.Length)  + "\r\n");
 
             KodFano.SelectionFont = new Font(KodFano.Font, FontStyle.Bold);
             KodFano.AppendText("Количесвто символов алфавита: ");
@@ -324,6 +361,12 @@ namespace Laba9
 
             KodFano.SelectionFont = new Font(KodFano.Font, FontStyle.Regular);
             KodFano.AppendText(fano.avLen.ToString() + "\r\n");
+
+            KodFano.SelectionFont = new Font(KodFano.Font, FontStyle.Bold);
+            KodFano.AppendText("Эффективность сжатия: ");
+
+            KodFano.SelectionFont = new Font(KodFano.Font, FontStyle.Regular);
+            KodFano.AppendText(def.H / fano.avLen + "\r\n");
 
             KodFano.SelectionFont = new Font(KodFano.Font, FontStyle.Bold);
             KodFano.AppendText("Минимальная длина кода: ");
@@ -372,7 +415,13 @@ namespace Laba9
             DefaultInfo.AppendText("Значение энтропии: ");
 
             DefaultInfo.SelectionFont = new Font(DefaultInfo.Font, FontStyle.Regular);
-            DefaultInfo.AppendText(def.I.ToString() + "\r\n");
+            DefaultInfo.AppendText(def.H.ToString() + "\r\n");
+
+            DefaultInfo.SelectionFont = new Font(DefaultInfo.Font, FontStyle.Bold);
+            DefaultInfo.AppendText("Информационный объем сообщения: ");
+
+            DefaultInfo.SelectionFont = new Font(DefaultInfo.Font, FontStyle.Regular);
+            DefaultInfo.AppendText(def.H * def.TextCode.Length + "\r\n");
 
             DefaultInfo.SelectionFont = new Font(DefaultInfo.Font, FontStyle.Bold);
             DefaultInfo.AppendText("Количесвто символов алфавита: ");
