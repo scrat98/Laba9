@@ -96,6 +96,15 @@ namespace Laba9
                     curPoz++;
                 }
 
+                //BUG!! EYA. Определяем в какую группу отнести последний эллемент
+                if (curPoz != cur.s)
+                {
+                    int d1, d2;
+                    d1 = Math.Abs(sum - 2 * (s + defNodes[curPoz].count));
+                    d2 = Math.Abs(sum - 2 * s);
+                    if (d2 < d1) curPoz--;
+                }
+                
                 cur.left = new Node(cur.s, curPoz, "Node" + curNode.ToString());
                 for (int i = 0; i < cur.code.Count; i++)
                     cur.left.code.Add(cur.code[i]);

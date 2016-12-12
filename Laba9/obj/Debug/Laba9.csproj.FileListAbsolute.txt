@@ -17,7 +17,6 @@ C:\Users\user\Desktop\Laba9\Laba9\bin\Debug\Microsoft.CSharp.dll
 C:\Users\user\Desktop\Laba9\Laba9\bin\Debug\Office.dll
 C:\Users\user\Desktop\Laba9\Laba9\bin\Debug\Microsoft.Office.Interop.Word.dll
 C:\Users\user\Desktop\Laba9\Laba9\bin\Debug\Microsoft.Vbe.Interop.dll
-C:\Users\user\Desktop\Laba9\Laba9\obj\Debug\Laba9.csprojResolveAssemblyReference.cache
 C:\Users\user\Desktop\Laba9\Laba9\obj\Debug\Laba9.Form1.resources
 C:\Users\user\Desktop\Laba9\Laba9\obj\Debug\Laba9.Properties.Resources.resources
 C:\Users\user\Desktop\Laba9\Laba9\obj\Debug\Laba9.csproj.GenerateResource.Cache
